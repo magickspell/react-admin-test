@@ -17,8 +17,11 @@ export const dataProvider = {
         }
         if (resource === 'promos') {
             let result = await axios.get(`http://localhost:3001/promos-pagination?start=${page}&end=${perPage}`)
+            let users = await axios.get(`http://localhost:3001/users`)
+            let usersArr = users.data
             let arr = result.data.map((i, n) => {
                 i.id = i._id
+                i.creator = usersArr[n].username
                 return i
             })
             return {
