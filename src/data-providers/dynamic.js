@@ -19,9 +19,17 @@ export const dataProvider = {
             let result = await axios.get(`http://localhost:3001/promos-pagination?start=${page}&end=${perPage}`)
             let users = await axios.get(`http://localhost:3001/users`)
             let usersArr = users.data
-            let arr = result.data.map((i, n) => {
+            let arr = result.data.map((i) => {
                 i.id = i._id
-                i.creator = usersArr[n].username
+                i.date.start = new Date(i.date.start).toLocaleString()
+                i.date.end = new Date(i.date.end).toLocaleString()
+                for (let user in usersArr) {
+                    // тут была ошибка, что я итерировался по номеру элемента
+                    // из-за этого всегда подставлял одинаковые имена
+                    if (i.creator === usersArr[user].id) {
+                        i.creator = usersArr[user].username
+                    }
+                }
                 return i
             })
             return {

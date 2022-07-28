@@ -13,6 +13,11 @@ export const Navbar = (props) => {
                         props.setPage('dynamic')
                     }}
             >Dynamic</button>
+            <button className={(props.page === 'my-page') ? "btn" : "btn active"}
+                    onClick={() => {
+                        props.setPage('my-page')
+                    }}
+            >My Table</button>
         </div>
     )
 }

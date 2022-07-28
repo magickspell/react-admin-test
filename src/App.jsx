@@ -3,6 +3,7 @@ import {Admin, Resource, ListGuesser} from 'react-admin';
 import {Navbar} from "./components/Navbar";
 import {TableDynamic} from "./tables/TableDynamic";
 import {TableStatic} from "./tables/TableStatic";
+import {Table} from "./components/Table";
 
 export const App = () => {
 
@@ -14,12 +15,18 @@ export const App = () => {
     return (
         <>
 
-
-            {
-                page !== 'static'
-                ? <TableDynamic/>
-                : <TableStatic/>
-            }
+            {(() => {
+                switch (page) {
+                    case 'static':
+                        return <TableStatic/>
+                    case 'dynamic':
+                        return <TableDynamic/>
+                    case 'my-page':
+                        return <Table/>
+                    default:
+                        return null
+                }
+            })()}
 
             <Navbar page={page} setPage={setPage}/>
 
